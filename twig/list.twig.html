@@ -3,4 +3,20 @@
 {% block content %}
 <h1>Alle kalenderhendelser</h1>
 
+<ol class="list list-unstyled">
+	{% for event in events %}
+	<li>
+		<div class="col-xs-2">{{ event.date|dato('D d.m') }}</div>
+		<div class="col-xs-10 col-md-4"><b>{{ event.title }}</b></div>
+		<div class="col-xs-12 col-md-6">{{ event.description }}</div>
+	</li>
+	{% else %}
+	<li class="alert alert-info">
+		Det er ikke lagt til noen kalenderhendelser enda.
+		{% if site_type == 'fylke' %}
+		<a href="?page=UKMkalender&action=form">Legg til en kalenderhendelse</a>
+		{% endif %}
+	</li>
+	{% endfor %}
+
 {% endblock %}
