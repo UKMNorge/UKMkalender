@@ -39,8 +39,9 @@ function UKMkalender() {
 	$INFOS['tab_active'] = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
 	
 	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
-		// DO SAVE
-		$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring ikke implementert!','body'=>'Det kommer snart');
+		require_once('controller/save.controller.php');
+
+		
 		$INFOS['tab_active'] = 'list';
 	}
 	

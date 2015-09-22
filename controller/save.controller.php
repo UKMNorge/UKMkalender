@@ -11,30 +11,34 @@ function getDatePickerTime($postname) {
 	return @mktime($v['h'],$v['i'],0,$v['m'],$v['d'],$v['y']);
 }
 
-// Lagrer event til databasen, og trigger ny generering av .ics-fil
-function add_event() {
+$pl = new monstring(get_option("pl_id"));
+// Motta data fra form
+$tittel = $_POST['title'];
+$fylke = $pl->get('fylke_id');
+$sted = $_POST['location'];
+$beskrivelse = $_POST['description'];
+$start = getDatePickerTime('start');
+$slutt = getDatePickerTime('stop');
 
-	// Motta data fra form
-	$tittel = $_POST['tittel'];
-	$fylke = get_option('site_type');
-	$sted = $_POST['sted'];
-	$beskrivelse = $_POST['beskrivelse'];
-	$start = getDatePickerTime('start');
-	$slutt = getDatePickerTime('stopp');
-
-	// Query data til database
-	$sql = new SQLins('kalender');
-	$sql->add('title', $tittel);
-	$sql->add('fylke', $fylke);
-	$sql->add('sted', $sted);
-	$sql->add('beskrivelse', $beskrivelse);
-	$sql->add('start', $start);
-	$sql->add('slutt', $slutt);
-	$id = $sql->run();
-	// Husk at $id = $sql->insId();
-
-	// TODO: Trigger rebuild av .ics-fil
+// Query data til database
+$sql = new SQLins('ukm_kalender');
+$sql->add('title', $tittel); // varchar(256)
+$sql->add('fylke', $fylke); // int
+$sql->add('location', $sted);
+$sql->add('description', $beskrivelse);
+$sql->add('start', $start);
+$sql->add('stop', $slutt);
+$res = $sql->run();
+// $res er et array
+echo $sql->debug();
+echo var_dump($res);
+if ($res && $res == 1) {
+	$INFOS['message'] = array('level'=>'success', 'header'=>'Lagret!','body'=>'');
 }
-
+else {
+	$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring ikke implementert!','body'=>'Det kommer snart');
+}
+$eventid = $sql->insId();
+// Husk at $eventId = $sql->insId();
 
 ?>
