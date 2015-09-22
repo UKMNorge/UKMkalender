@@ -4,6 +4,7 @@
 	<form method="POST">
 		<fieldset class="col-xs-12 col-md-6">
 			<legend>{{ event == false ? 'Ny' : 'Rediger' }} kalenderhendelse</legend>
+			<input type="hidden" name="cal_id" value="{{ event == false ? 'new' : event.id }}" />
 			
 			<div class="form-group">
 				<label for="name">Tittel</label>
