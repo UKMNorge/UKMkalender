@@ -8,6 +8,7 @@ Version: 1.0
 Author URI: http://mariusmandal.no
 */
 
+require_once('UKM/sql.class.php');
 ## HOOK MENU AND SCRIPTS
 if(is_admin()) {
 	add_action('UKM_admin_menu', 'UKMkalender_menu');
@@ -32,7 +33,26 @@ function UKMkalender_script() {
 
 function UKMkalender() {
 	$INFOS = array();
-#	require_once('monstringer.controller.php');
-	echo TWIG('dash.twig.html', $INFOS , dirname(__FILE__));
+	
+	$INFOS['site_type'] = get_option('site_type');
+	$INFOS['tab_active'] = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
+	
+	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+		// DO SAVE
+		$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring ikke implementert!','body'=>'Det kommer snart');
+		$INFOS['tab_active'] = 'list';
+	}
+	
+	switch( $INFOS['tab_active'] ) {
+		case 'info':
+			break;
+		case 'create':
+			require_once('controller/form.controller.php');
+			break;
+		default:
+			require_once('controller/list.controller.php');
+			break;
+	}
+	echo TWIG($INFOS['tab_active'].'.twig.html', $INFOS , dirname(__FILE__));
 
 }
