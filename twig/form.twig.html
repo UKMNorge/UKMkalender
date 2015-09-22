@@ -1,0 +1,76 @@
+{% extends "layout.twig.html" %}
+
+{% block content %}
+	<form method="POST">
+		<fieldset class="col-xs-12 col-md-6">
+			<legend>{{ event == false ? 'Ny' : 'Rediger' }} kalenderhendelse</legend>
+			
+			<div class="form-group">
+				<label for="name">Tittel</label>
+				<input value="{{ event == false ? '': event.title}}" type="text" class="form-control" id="title" name="title" placeholder="Skriv inn tittel..." />
+			</div>
+
+			<div class="form-group">
+				<label for="name">Sted</label>
+				<input value="{{ event == false ? '': event.location}}" type="text" class="form-control" id="location" name="location" placeholder="Skriv inn sted..." />
+			</div>
+		
+			<div class="form-group">
+				<label for="name">Beskrivelse</label>
+				<textarea class="form-control" id="description" name="description" placeholder="Skriv inn beskrivelse">{{ event == false ? '': event.description}}</textarea>
+			</div>
+		
+			<div class="form-group">
+				<label for="name">Start</label>
+				<input class="datepicker" type="text" id="start_datepicker" name="start_datepicker" value="{{event.start|date('d.m.Y')}}">
+					kl. 
+					<select name="start_datepicker_time">
+						{% for i in range(8,23) %}
+							<option value="{{ i }}"{{ i == event.start|date('H') ? 'selected="selected"' : '' }}>
+								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
+							</option>
+						{% endfor %}
+					</select>
+					:
+					<select name="start_datepicker_min">
+						{% for i in range(0,60) %}
+							{% if i is divisibleby(5) %}
+							<option value="{{ i }}"{{ i == event.start|date('i') ? 'selected="selected"' : '' }}>
+								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
+							</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+			</div>
+		
+		
+			<div class="form-group">
+				<label for="name">Slutt</label>
+				<input class="datepicker" type="text" id="stop_datepicker" name="stop_datepicker" value="{{event.stop|date('d.m.Y')}}">
+					kl. 
+					<select name="stop_datepicker_time">
+						{% for i in range(8,23) %}
+							<option value="{{ i }}"{{ i == event.stop|date('H') ? 'selected="selected"' : '' }}>
+								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
+							</option>
+						{% endfor %}
+					</select>
+					:
+					<select name="stop_datepicker_min">
+						{% for i in range(0,60) %}
+							{% if i is divisibleby(5) %}
+							<option value="{{ i }}"{{ i == event.stop|date('i') ? 'selected="selected"' : '' }}>
+								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
+							</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+			</div>
+			
+			<div class="form-group">
+				<button class="btn btn-success btn-lg" type="submit">Lagre</button>
+			</div>
+	
+		</fieldset>
+	</form>
+{% endblock %}
