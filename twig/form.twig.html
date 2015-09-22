@@ -22,7 +22,7 @@
 		
 			<div class="form-group">
 				<label for="name">Start</label>
-				<input class="datepicker" type="text" id="start_datepicker" name="start_datepicker" value="{{event.start|date('d.m.Y')}}">
+				<input class="datepicker_kalender" type="text" id="start_datepicker" name="start_datepicker" value="{{event.start|date('d.m.Y')}}">
 					kl. 
 					<select name="start_datepicker_time">
 						{% for i in range(8,23) %}
@@ -46,7 +46,7 @@
 		
 			<div class="form-group">
 				<label for="name">Slutt</label>
-				<input class="datepicker" type="text" id="stop_datepicker" name="stop_datepicker" value="{{event.stop|date('d.m.Y')}}">
+				<input class="datepicker_kalender" type="text" id="stop_datepicker" name="stop_datepicker" value="{{event.stop|date('d.m.Y')}}">
 					kl. 
 					<select name="stop_datepicker_time">
 						{% for i in range(8,23) %}

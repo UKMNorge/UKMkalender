@@ -28,12 +28,13 @@ function UKMkalender_script() {
 	wp_enqueue_script('WPbootstrap3_js');
 	wp_enqueue_style('WPbootstrap3_css');
 #	wp_enqueue_style( 'UKMkalender_style', plugin_dir_url( __FILE__ ) .'ukmvideresending_festival.css');
-#	wp_enqueue_script( 'UKMkalender_script', plugin_dir_url( __FILE__ ) .'ukmvideresending_festival.js');	
+	wp_enqueue_script( 'UKMKalender_script', plugin_dir_url( __FILE__ ) .'ukmkalender.js');
 }
 
 function UKMkalender() {
 	$INFOS = array();
 	
+	$INFOS['season'] = get_option('season');
 	$INFOS['site_type'] = get_option('site_type');
 	$INFOS['tab_active'] = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
 	

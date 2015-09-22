@@ -1,4 +1,7 @@
 <h1>Kalender</h1>
+<script type="text/javascript">
+	var UKMSEASON = {{season}};
+</script>
 
 <div class="UKM_tabs">
 	<a href="?page=UKMkalender&action=list" {{ tab_active == 'list' ? 'class="active"' : ''}}>
@@ -35,7 +38,7 @@
 
 <div class="UKM_content_wrapper">
 	{% if message is defined %}
-		<div class="alert alert-{{message.level}}">
+		<div class="alert alert-{{message.level}} UKMwidth">
 			<h4>{{message.header}}</h4>
 			<p>{{message.body|raw}}</p>
 		</div>
