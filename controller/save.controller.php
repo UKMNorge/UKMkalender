@@ -35,7 +35,7 @@ $res = $sql->run();
 // $res er et array
 // echo $sql->debug();
 // echo var_dump($res);
-if ($res && $res == 1) { // Query successfull
+if ($res && $res == 1) { // Query funket!
 	$INFOS['message'] = array('level'=>'success', 'header'=>'Lagret!','body'=>'');
 }
 else {
