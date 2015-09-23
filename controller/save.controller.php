@@ -5,10 +5,11 @@ function getDatePickerTime($postname) {
 	$v = array('d'=>$vals[0],
 		  	   'm'=>$vals[1],
 			   'y'=>$vals[2],
-			   'h'=>$_POST[$postname.'_time'],
-			   'i'=>$_POST[$postname.'_min']
+			   'h'=>"09", //$_POST[$postname.'_time'],
+			   'i'=>"00", //$_POST[$postname.'_min']
 				 );
-	return @mktime($v['h'],$v['i'],0,$v['m'],$v['d'],$v['y']);
+	return $v['y'].'-'.$v['m'].'-'.$v['d'].' '.$v['h'].':'.$v['i'].':'.'00';
+	//return @mktime($v['h'],$v['i'],0,$v['m'],$v['d'],$v['y']);
 }
 
 $pl = new monstring(get_option("pl_id"));
@@ -29,6 +30,7 @@ $sql->add('description', $beskrivelse);
 $sql->add('start', $start);
 $sql->add('stop', $slutt);
 $res = $sql->run();
+echo $start;
 // $res er et array
 echo $sql->debug();
 echo var_dump($res);
