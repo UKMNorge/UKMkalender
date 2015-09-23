@@ -9,6 +9,7 @@ function getDatePickerTime($postname) {
 			   'i'=>"00", //$_POST[$postname.'_min']
 				 );
 	return $v['y'].'-'.$v['m'].'-'.$v['d'].' '.$v['h'].':'.$v['i'].':'.'00';
+	// returns the datetime as a string in correct mysql-format instead.
 	//return @mktime($v['h'],$v['i'],0,$v['m'],$v['d'],$v['y']);
 }
 
@@ -30,15 +31,16 @@ $sql->add('description', $beskrivelse);
 $sql->add('start', $start);
 $sql->add('stop', $slutt);
 $res = $sql->run();
-echo $start;
+
 // $res er et array
-echo $sql->debug();
-echo var_dump($res);
-if ($res && $res == 1) {
+// echo $sql->debug();
+// echo var_dump($res);
+if ($res && $res == 1) { // Query successfull
 	$INFOS['message'] = array('level'=>'success', 'header'=>'Lagret!','body'=>'');
 }
 else {
-	$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring ikke implementert!','body'=>'Det kommer snart');
+	$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring feilet!','body'=>'Vennligst prøv igjen.');
+	// TODO: La data stå i forms hvis lagring feilet, ikke sett tab-active til list.
 }
 $eventid = $sql->insId();
 // Husk at $eventId = $sql->insId();

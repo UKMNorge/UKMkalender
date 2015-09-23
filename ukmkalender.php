@@ -55,7 +55,7 @@ function UKMkalender() {
 			require_once('controller/list.controller.php');
 			break;
 	}
-	var_dump($INFOS);
+	//var_dump($INFOS); // Debug-help
 	echo TWIG($INFOS['tab_active'].'.twig.html', $INFOS , dirname(__FILE__), true);
 
 }
