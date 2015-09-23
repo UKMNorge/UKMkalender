@@ -35,6 +35,7 @@ if ($res) {
 
 		$cal->addEvent($event);	
 	}
+	var_dump($INFOS['savePath']);
 	$cal->write($INFOS['savePath'], ''); //TODO:
 }
 // Skriv ut kalender til fil, gi adresse til fil tilbake.
