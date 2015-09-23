@@ -26,11 +26,9 @@ function link_it($text) {
 
 ## CREATE A MENU
 function UKMkalender_menu() {
-	global $UKMN;
-	if( get_option('site_type') == 'fylke' ) {
-		UKM_add_menu_page('resources','Kalender', 'Kalender', 'editor', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
-		UKM_add_scripts_and_styles( 'UKMkalender', 'UKMkalender_script', 5000 );
-	}
+	
+	UKM_add_menu_page('resources','Kalender', 'Kalender', 'editor', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
+	UKM_add_scripts_and_styles( 'UKMkalender', 'UKMkalender_script', 5000 );
 }
 
 ## INCLUDE SCRIPTS
@@ -42,8 +40,6 @@ function UKMkalender_script() {
 }
 
 function UKMkalender_dash( $MESSAGES ) {
-	if( get_option('site_type') != 'fylke' )
-		return $MESSAGES;
 
 	$antallHendelser = 3;
 
@@ -62,7 +58,6 @@ function UKMkalender_dash( $MESSAGES ) {
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);
-			
 
 			$messageText = '<b>Dato:</b> ' . $row['start'] . 
 							'<br><b>Sted:</b> ' . $location .
