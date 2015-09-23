@@ -24,48 +24,12 @@
 			<div class="form-group">
 				<label for="name">Start</label>
 				<input class="datepicker_kalender" type="text" id="start_datepicker" name="start_datepicker" value="{{event.start|date('d.m.Y')}}">
-					kl. 
-					<select name="start_datepicker_time">
-						{% for i in range(8,23) %}
-							<option value="{{ i }}"{{ i == event.start|date('H') ? 'selected="selected"' : '' }}>
-								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
-							</option>
-						{% endfor %}
-					</select>
-					:
-					<select name="start_datepicker_min">
-						{% for i in range(0,60) %}
-							{% if i is divisibleby(5) %}
-							<option value="{{ i }}"{{ i == event.start|date('i') ? 'selected="selected"' : '' }}>
-								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
-							</option>
-							{% endif %}
-						{% endfor %}
-					</select>
 			</div>
 		
 		
 			<div class="form-group">
 				<label for="name">Slutt</label>
 				<input class="datepicker_kalender" type="text" id="stop_datepicker" name="stop_datepicker" value="{{event.stop|date('d.m.Y')}}">
-					kl. 
-					<select name="stop_datepicker_time">
-						{% for i in range(8,23) %}
-							<option value="{{ i }}"{{ i == event.stop|date('H') ? 'selected="selected"' : '' }}>
-								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
-							</option>
-						{% endfor %}
-					</select>
-					:
-					<select name="stop_datepicker_min">
-						{% for i in range(0,60) %}
-							{% if i is divisibleby(5) %}
-							<option value="{{ i }}"{{ i == event.stop|date('i') ? 'selected="selected"' : '' }}>
-								{% if i < 10 %}0{{ i }}{% else %}{{ i }}{% endif %}
-							</option>
-							{% endif %}
-						{% endfor %}
-					</select>
 			</div>
 			
 			<div class="form-group">

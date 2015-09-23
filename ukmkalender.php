@@ -39,9 +39,9 @@ function UKMkalender() {
 	$INFOS['tab_active'] = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
 	
 	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
+		// Gjør lagring
 		require_once('controller/save.controller.php');
 
-		
 		$INFOS['tab_active'] = 'list';
 	}
 	
@@ -55,6 +55,7 @@ function UKMkalender() {
 			require_once('controller/list.controller.php');
 			break;
 	}
-	echo TWIG($INFOS['tab_active'].'.twig.html', $INFOS , dirname(__FILE__));
+	var_dump($INFOS);
+	echo TWIG($INFOS['tab_active'].'.twig.html', $INFOS , dirname(__FILE__), true);
 
 }
