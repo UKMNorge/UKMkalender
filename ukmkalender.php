@@ -88,16 +88,19 @@ function UKMkalender_dash( $MESSAGES ) {
 }
 
 function UKMkalender() {
+	$pl = new monstring(get_option("pl_id"));
+
 	$INFOS = array();
 	
 	$INFOS['season'] = get_option('season');
 	$INFOS['site_type'] = get_option('site_type');
 	$INFOS['tab_active'] = isset( $_GET['action'] ) ? $_GET['action'] : 'list';
 
-	$calName = 'Testkalender'; // Bør baseres på fylke etterhvert?
+	//$calName = 'Testkalender'; // Bør baseres på fylke etterhvert?
+	$calName = $pl->_sanitize_nordic($pl->get('fylke_name'));
 	//$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
 	if (UKM_HOSTNAME == "ukm.no") {
-		$INFOS['savePath'] = '/home/ukmno/public_subdomains/kalender'.$calName.'.ics';
+		$INFOS['savePath'] = '/home/ukmno/public_subdomains/kalender/'.$calName.'.ics';
 		$INFOS['saveURL'] = 'webdav://kalender.ukm.no/'.$calName.'.ics';
 	}
 	else {
