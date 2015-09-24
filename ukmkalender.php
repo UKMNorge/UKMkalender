@@ -101,7 +101,7 @@ function UKMkalender() {
 	//$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
 	if (UKM_HOSTNAME == "ukm.no") {
 		$INFOS['savePath'] = '/home/ukmno/public_subdomains/kalender/'.$calName.'.ics';
-		$INFOS['saveURL'] = 'webdav://kalender.ukm.no/'.$calName.'.ics';
+		$INFOS['saveURL'] = 'http://kalender.ukm.no/'.$calName.'.ics';
 	}
 	else {
 		$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
@@ -113,7 +113,12 @@ function UKMkalender() {
 		require_once('controller/save.controller.php');
 		// Skriv ICS-fil
 		require_once('controller/ics.controller.php');
+		// Gå over til listevisninga
 		$INFOS['tab_active'] = 'list';
+	}
+	elseif( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['edit'] == 'true') {
+		// Kjør oppdatering av form-verdier fra MySQL-databasen.
+		require_once('controller/form.controller.php');
 	}
 	
 	switch( $INFOS['tab_active'] ) {

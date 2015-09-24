@@ -22,14 +22,24 @@ $beskrivelse = $_POST['description'];
 $start = getDatePickerTime('start');
 $slutt = getDatePickerTime('stop');
 
-// Query data til database
-$sql = new SQLins('ukm_kalender');
+// Hvis dette er en edit
+if ($_POST['id'] != '') {
+	$sql = new SQLins('ukm_kalender', array('id'=> $_POST['id']));
+}
+else {
+	// Eller en ny event
+	$sql = new SQLins('ukm_kalender');	
+}
+
+// Legg til data i spørringen
 $sql->add('title', $tittel); // varchar(256)
 $sql->add('fylke', $fylke); // int
 $sql->add('location', $sted);
 $sql->add('description', $beskrivelse);
 $sql->add('start', $start);
 $sql->add('stop', $slutt);
+
+// Kjør spørringen
 $res = $sql->run();
 
 // $res er et array

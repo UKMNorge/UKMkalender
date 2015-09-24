@@ -3,33 +3,33 @@
 {% block content %}
 	<form method="POST">
 		<fieldset class="col-xs-12 col-md-6">
-			<legend>{{ event == false ? 'Ny' : 'Rediger' }} kalenderhendelse</legend>
-			<input type="hidden" name="cal_id" value="{{ event == false ? 'new' : event.id }}" />
+			<legend>{{ editevent == false ? 'Ny' : 'Rediger' }} kalenderhendelse</legend>
+			<input type="hidden" name="id" value="{{ editevent == false ? '': editevent.id}}" />
 			
 			<div class="form-group">
 				<label for="name">Tittel</label>
-				<input value="{{ event == false ? '': event.title}}" type="text" class="form-control" id="title" name="title" placeholder="Skriv inn tittel..." />
+				<input value="{{ editevent == false ? '': editevent.title}}" type="text" class="form-control" id="title" name="title" placeholder="Skriv inn tittel..." />
 			</div>
 
 			<div class="form-group">
 				<label for="name">Sted</label>
-				<input value="{{ event == false ? '': event.location}}" type="text" class="form-control" id="location" name="location" placeholder="Skriv inn sted..." />
+				<input value="{{ editevent == false ? '': editevent.location}}" type="text" class="form-control" id="location" name="location" placeholder="Skriv inn sted..." />
 			</div>
 		
 			<div class="form-group">
 				<label for="name">Beskrivelse</label>
-				<textarea class="form-control" id="description" name="description" placeholder="Skriv inn beskrivelse">{{ event == false ? '': event.description}}</textarea>
+				<textarea class="form-control" id="description" name="description" placeholder="Skriv inn beskrivelse">{{ editevent == false ? '': editevent.description}}</textarea>
 			</div>
 		
 			<div class="form-group">
 				<label for="name">Start</label>
-				<input class="datepicker_kalender" type="text" id="start_datepicker" name="start_datepicker" value="{{event.start|date('d.m.Y')}}">
+				<input class="datepicker_kalender" type="text" id="start_datepicker" name="start_datepicker" value="{{editevent.start|date('d.m.Y')}}">
 			</div>
 		
 		
 			<div class="form-group">
 				<label for="name">Slutt</label>
-				<input class="datepicker_kalender" type="text" id="stop_datepicker" name="stop_datepicker" value="{{event.stop|date('d.m.Y')}}">
+				<input class="datepicker_kalender" type="text" id="stop_datepicker" name="stop_datepicker" value="{{editevent.stop|date('d.m.Y')}}">
 			</div>
 			
 			<div class="form-group">
