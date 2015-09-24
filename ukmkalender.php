@@ -47,10 +47,10 @@ function UKMkalender_dash( $MESSAGES ) {
 	$antallHendelser = 3; // Antall hendelser som skal listes opp i meldinger.
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
+	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND start>=CURDATE() ORDER BY `start` LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
-	$counter = sizeof($MESSAGES) + $antallHendelser;
+	//$counter = sizeof($MESSAGES) + $antallHendelser;
 	if ($res) {
 		// For each event:
 		while( $row = mysql_fetch_assoc($res) ) {
@@ -66,18 +66,17 @@ function UKMkalender_dash( $MESSAGES ) {
 							'<br><b>Sted:</b> ' . $location .
 							'<br><b>Beskrivelse:</b> ' . $row['description'];
 			
-			if( $start < (time()+3600*168) && $start > time() ) {
+			if( $start < (time()+3600*168) && $start > date("c") ) {
 				$alertLevel = 'alert-warning';
 			}
 			else {
 				$alertLevel = 'alert-info';
 			}
 
-			$MESSAGES_tmp[$counter] = array('level' 	=> $alertLevel,
+			$MESSAGES_tmp[] = array('level' 	=> $alertLevel,
 								'header'	=> $row['title'],
 								'body'		=> $messageText
 								);
-			$counter--;
 		}
 		if ($MESSAGES_tmp != null)
 		{
