@@ -8,11 +8,15 @@ $eventName = 'Eventtittel';
 
 $cal = new ICS\Calendar($calName);
 
-$cal->setDescription('Testkalender for fylkenes årshjul');
+$pl = new monstring(get_option("pl_id"));
+$fylkeName = $pl->get('fylke_name');
+$fylkeId = $pl->get('fylke_id');
+
+$cal->setDescription('Årshjul ' . $fylkeName . ' UKM');
 
 // Add events, generate from database
 // Kjør nytt query?
-$sql = new SQL("SELECT * FROM `ukm_kalender` ORDER BY `title`");
+$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." ORDER BY `title`");
 $res = $sql->run();
 
 if ($res) {

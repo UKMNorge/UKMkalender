@@ -42,12 +42,12 @@ function UKMkalender_script() {
 function UKMkalender_dash( $MESSAGES ) {
 
 	$pl = new monstring(get_option("pl_id"));
-	$fylke = $pl->get('fylke_id');
+	$fylkeId = $pl->get('fylke_id');
 
-	$antallHendelser = 3;
+	$antallHendelser = 3; // Antall hendelser som skal listes opp i meldinger.
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylke." AND `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
+	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
 	$counter = sizeof($MESSAGES) + $antallHendelser;
