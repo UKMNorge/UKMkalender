@@ -41,10 +41,13 @@ function UKMkalender_script() {
 
 function UKMkalender_dash( $MESSAGES ) {
 
+	$pl = new monstring(get_option("pl_id"));
+	$fylke = $pl->get('fylke_id');
+
 	$antallHendelser = 3;
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
+	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylke." AND `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
 	$counter = sizeof($MESSAGES) + $antallHendelser;
@@ -76,8 +79,11 @@ function UKMkalender_dash( $MESSAGES ) {
 								);
 			$counter--;
 		}
-		ksort($MESSAGES_tmp);
-		$MESSAGES = array_merge($MESSAGES, $MESSAGES_tmp);
+		if ($MESSAGES_tmp != null)
+		{
+			ksort($MESSAGES_tmp);
+			$MESSAGES = array_merge($MESSAGES, $MESSAGES_tmp);
+		}
 	}
 	return $MESSAGES;
 }

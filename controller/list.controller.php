@@ -1,6 +1,9 @@
 <?php
 
-$sql = new SQL("SELECT * FROM `ukm_kalender` ORDER BY `start`");
+$pl = new monstring(get_option("pl_id"));
+$fylke = $pl->get('fylke_id');
+
+$sql = new SQL("SELECT * FROM `ukm_kalender`  WHERE `fylke` = ".$fylke." ORDER BY `start`");
 $res = $sql->run();
 if( $res ) {
 	while( $row = mysql_fetch_assoc( $res ) ) {
