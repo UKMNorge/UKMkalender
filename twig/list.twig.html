@@ -20,12 +20,14 @@
 				<div class="col-xs-1 col-md-1" >{{event.start|dato('D d.m')|capitalize}}</div>
 				<div class="col-xs-3 col-md-3"><b>{{event.title}}</b></div>
 				<div class="col-xs-7 col-md-7">{{event.description}}</div>
+				{% if site_type == 'fylke' %}
 				<div class="col-xs-1 col-md-1">
 					<a class="" href="?page=UKMkalender&action=form&edit=true&id={{event.id}}">
 						<img class=".img-responsive" src="http://ico.ukm.no/pencil-32.png" />
 						<span class="button-text">Rediger</span>
 					</a>
 				</div>
+				{% endif %}
 			</li>
 		
 			{% else %}
