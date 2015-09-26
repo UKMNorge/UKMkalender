@@ -107,7 +107,7 @@ function UKMkalender() {
 	}
 	else {
 		$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
-		$INFOS['saveURL'] = $_SERVER['SERVER_NAME'] . '/' . $INFOS['savePath'];
+		$INFOS['saveURL'] = $_SERVER['SERVER_NAME'] . $INFOS['savePath'];
 	}
 
 	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
