@@ -61,6 +61,8 @@ function UKMkalender_dash( $MESSAGES ) {
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);
+			require_once('functions.php');
+			$row['start'] = ucfirst(dato($row['start'], 'l d. F'));
 
 			$messageText = '<b>Dato:</b> ' . $row['start'] . 
 							'<br><b>Sted:</b> ' . $location .
