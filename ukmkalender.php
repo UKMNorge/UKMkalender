@@ -40,7 +40,7 @@ function UKMkalender_script() {
 }
 
 function UKMkalender_dash( $MESSAGES ) {
-
+	require_once('functions.php');
 	$pl = new monstring(get_option("pl_id"));
 	$fylkeId = $pl->get('fylke_id');
 
@@ -61,7 +61,7 @@ function UKMkalender_dash( $MESSAGES ) {
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);
-			require_once('functions.php');
+			
 			$row['start'] = ucfirst(dato($row['start'], 'l d. F'));
 
 			$messageText = '<b>Dato:</b> ' . $row['start'] . 
