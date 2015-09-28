@@ -26,7 +26,7 @@ function link_it($text) {
 
 ## CREATE A MENU
 function UKMkalender_menu() {
-	
+	//UKM_add_menu_page('resources','Kalender', 'Kalender', 'admin', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
 	UKM_add_menu_page('resources','Kalender', 'Kalender', 'editor', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
 	UKM_add_scripts_and_styles( 'UKMkalender', 'UKMkalender_script', 5000 );
 }
@@ -103,11 +103,11 @@ function UKMkalender() {
 	//$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
 	if (UKM_HOSTNAME == "ukm.no") {
 		$INFOS['savePath'] = '/home/ukmno/public_subdomains/kalender/'.$calName.'.ics';
-		$INFOS['saveURL'] = 'http://kalender.ukm.no/'.$calName.'.ics';
+		$INFOS['saveURL'] = 'webcal://kalender.ukm.no/'.$calName.'.ics';
 	}
 	else {
 		$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
-		$INFOS['saveURL'] = $_SERVER['SERVER_NAME'] . $INFOS['savePath'];
+		$INFOS['saveURL'] = 'webcal://' . $_SERVER['SERVER_NAME'] . $INFOS['savePath'];
 	}
 
 	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {

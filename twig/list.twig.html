@@ -19,12 +19,18 @@
 			<li class="col-xs-12 list-group-item" ><!-- {{ dump(event) }} -->
 				<div class="col-xs-1 col-md-1" >{{event.start|dato('D d.m')|capitalize}}</div>
 				<div class="col-xs-3 col-md-3"><b>{{event.title}}</b></div>
-				<div class="col-xs-7 col-md-7">{{event.description}}</div>
+				<div class="col-xs-6 col-md-6">{{event.description}}</div>
 				{% if site_type == 'fylke' %}
 				<div class="col-xs-1 col-md-1">
 					<a class="" href="?page=UKMkalender&action=form&edit=true&id={{event.id}}">
-						<img class=".img-responsive" src="http://ico.ukm.no/pencil-32.png" />
+						<img class=".img-responsive" src="http://ico.ukm.no/pencil-32.png"  style="max-height: 2em" />
 						<span class="button-text">Rediger</span>
+					</a>
+				</div>
+				<div class="col-xs-1 col-md-1">
+					<a class="" href="?page=UKMkalender&action=form&edit=true&id={{event.id}}">
+						<img class=".img-responsive" src="http://ico.ukm.no/delete-256.png" style="max-height: 2em"/>
+						<span class="button-text">Slett</span>
 					</a>
 				</div>
 				{% endif %}
