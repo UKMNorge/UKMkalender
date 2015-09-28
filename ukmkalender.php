@@ -61,12 +61,13 @@ function UKMkalender_dash( $MESSAGES ) {
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);
+			$description = link_it($row['description']);
 			
 			$row['start'] = ucfirst(dato($row['start'], 'l d. F'));
 
 			$messageText = '<b>Dato:</b> ' . $row['start'] . 
 							'<br><b>Sted:</b> ' . $location .
-							'<br><b>Beskrivelse:</b> ' . $row['description'];
+							'<br><b>Beskrivelse:</b> ' . $description;
 			
 			if( $start < (time()+3600*168) && $start > date("c") ) {
 				$alertLevel = 'alert-warning';
@@ -121,6 +122,12 @@ function UKMkalender() {
 	elseif( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['edit'] == 'true') {
 		// Kjør oppdatering av form-verdier fra MySQL-databasen.
 		require_once('controller/form.controller.php');
+	}
+	elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['delete'] == 'true') {
+		// Kjør controller som sletter databaseoppføring.
+		require_once('controller/delete.controller.php');
+		// Gå over til listevisninga
+		$INFOS['tab_active'] = 'list';
 	}
 	
 	switch( $INFOS['tab_active'] ) {
