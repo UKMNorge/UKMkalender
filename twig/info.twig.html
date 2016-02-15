@@ -1,15 +1,22 @@
 {% extends "layout.twig.html" %}
 
 {% block content %}
-<p class="lead">Her kan du lære mer</p>
+<p class="lead">Abonner på denne kalenderen</p>
 <p>
 	Du kan abonnere på kalenderen direkte i Outlook eller andre kalender-programmer.
 </p>
-<p>
-	<a href="http://windows.microsoft.com/nb-no/windows/outlook/calendar-import-vs-subscribe" target="_blank">Usikker på hvordan du abonnerer på en kalender i outlook?</a>
-</p>
-<h3>Abonner på denne kalenderen</h3>
 <div class="alert alert-warning">
-	{{ saveURL }}
+	<a href="{{ saveURL }}">{{ saveURL }}</a></p>
 </div>
+<div class="alert">
+	<h4>Usikker på hvordan du abonnerer på en kalender i Outlook?</h4>
+	<ol>
+		<li>Start Outlook</li>
+		<li>Trykk på lenken over</li>
+		<li>I boksen "Legge til kalender og abonnere på denne?" Trykk ja.</li>
+	</ol>
+		<a href="http://windows.microsoft.com/nb-no/windows/outlook/calendar-import-vs-subscribe" target="_blank">Problemer? Trykk her for mer informasjon.</a>
+	</p>
+</div>
+
 {% endblock %}

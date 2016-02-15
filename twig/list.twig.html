@@ -3,12 +3,12 @@
 {% block content %}
 <h1>Alle kalenderhendelser</h1>
 
-<ol class="list list-unstyled">
+<ol class="list list-unstyled list-group">
 	{% for title,events in calendar_events|reverse %}
-
 	<h2 class="page-header">{{ title }} hendelser</h2>
 		{% for event in events %}
 			{% if headline != event.start|dato('F') %}
+
 				{% set headline = event.start|dato('F') %}
 				<li>
 					<h3>
@@ -16,19 +16,36 @@
 					</h3>
 				</li>	
 			{% endif %}
-		<li class="col-xs-12"><!-- {{ dump(event) }} -->
-			<div class="col-xs-2">{{event.start|dato('D d.m')}}</div>
-			<div class="col-xs-10 col-md-4"><b>{{event.title}}</b></div>
-			<div class="col-xs-12 col-md-6">{{event.description}}</div>
-		</li>
-
-		{% else %}
-		<li class="alert alert-info col-xs-12">
-			Det er ikke lagt til noen kalenderhendelser enda.
-			{% if site_type == 'fylke' %}
-				<a href="?page=UKMkalender&action=form">Legg til en kalenderhendelse</a>
-			{% endif %}
-		</li>
+			<li class="col-xs-12 list-group-item" ><!-- {{ dump(event) }} -->
+				<div class="col-xs-1 col-md-1" >{{event.start|dato('D d.m')|capitalize}}</div>
+				<div class="col-xs-3 col-md-3"><b>{{event.title}}</b></div>
+				<div class="col-xs-6 col-md-6">{{event.description}}</div>
+				{% if site_type == 'fylke' %}
+				<div class="col-xs-1 col-md-1">
+					<a class="" href="?page=UKMkalender&action=form&edit=true&id={{event.id}}">
+						<img class=".img-responsive" src="http://ico.ukm.no/pencil-32.png"  style="max-height: 2em" />
+						<span class="button-text">Rediger</span>
+					</a>
+				</div>
+				<div class="col-xs-1 col-md-1">
+					<a class="" href="?page=UKMkalender&delete=true&id={{event.id}}">
+						<img class=".img-responsive" src="http://ico.ukm.no/delete-256.png" style="max-height: 2em"/>
+						<span class="button-text">Slett</span>
+					</a>
+				</div>
+				{% endif %}
+			</li>
+		
+			{% else %}
+			<li class="alert alert-info col-xs-12">
+				Det er ikke lagt til noen kalenderhendelser enda.
+				{% if site_type == 'fylke' %}
+					<a href="?page=UKMkalender&action=form">Legg til en kalenderhendelse</a>
+				{% endif %}
+			</li>
 		{% endfor %}
+		<p>&nbsp;</p>
 	{% endfor %}
+	<p>&nbsp;</p>
+
 {% endblock %}

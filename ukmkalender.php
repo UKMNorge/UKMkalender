@@ -26,7 +26,7 @@ function link_it($text) {
 
 ## CREATE A MENU
 function UKMkalender_menu() {
-	
+	//UKM_add_menu_page('resources','Kalender', 'Kalender', 'admin', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
 	UKM_add_menu_page('resources','Kalender', 'Kalender', 'editor', 'UKMkalender', 'UKMkalender', 'http://ico.ukm.no/calendar-menu.png',21);
 	UKM_add_scripts_and_styles( 'UKMkalender', 'UKMkalender_script', 5000 );
 }
@@ -40,14 +40,16 @@ function UKMkalender_script() {
 }
 
 function UKMkalender_dash( $KALENDER ) {
-
-	$antallHendelser = 3;
+	require_once('functions.php');
+	$pl = new monstring(get_option("pl_id"));
+	$fylkeId = $pl->get('fylke_id');
+	$antallHendelser = 3; // Antall hendelser som skal listes opp i meldinger.
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` ");#WHERE `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
+	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND start>=CURDATE() ORDER BY `start` LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
-	$counter = sizeof($KALENDER) + $antallHendelser;
+	//$counter = sizeof($MESSAGES) + $antallHendelser;
 	if ($res) {
 		// For each event:
 		while( $row = mysql_fetch_assoc($res) ) {
@@ -58,12 +60,15 @@ function UKMkalender_dash( $KALENDER ) {
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);
+			$description = link_it($row['description']);
+			
+			$row['start'] = ucfirst(dato($row['start'], 'l d. F'));
 
 			$messageText = '<b>Dato:</b> ' . $row['start'] . 
 							'<br><b>Sted:</b> ' . $location .
-							'<br><b>Beskrivelse:</b> ' . $row['description'];
+							'<br><b>Beskrivelse:</b> ' . $description;
 			
-			if( $start < (time()+3600*168) && $start > time() ) {
+			if( $start < (time()+3600*168) && $start > date("c") ) {
 				$alertLevel = 'alert-warning';
 			}
 			else {
@@ -75,7 +80,6 @@ function UKMkalender_dash( $KALENDER ) {
 								'body'		=> $messageText,
 								'date'		=> $row['start']
 								);
-			$counter--;
 		}
 		if( is_array( $KALENDER_tmp ) ) {
 			ksort($KALENDER_tmp);
@@ -99,11 +103,11 @@ function UKMkalender() {
 	//$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
 	if (UKM_HOSTNAME == "ukm.no") {
 		$INFOS['savePath'] = '/home/ukmno/public_subdomains/kalender/'.$calName.'.ics';
-		$INFOS['saveURL'] = 'webdav://kalender.ukm.no/'.$calName.'.ics';
+		$INFOS['saveURL'] = 'webcal://kalender.ukm.no/'.$calName.'.ics';
 	}
 	else {
 		$INFOS['savePath'] = dirname(__FILE__). '/files/' . $calName .'.ics';
-		$INFOS['saveURL'] = $_SERVER['SERVER_NAME'] . '/' . $INFOS['savePath'];
+		$INFOS['saveURL'] = 'webcal://' . $_SERVER['SERVER_NAME'] . $INFOS['savePath'];
 	}
 
 	if( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
@@ -111,6 +115,17 @@ function UKMkalender() {
 		require_once('controller/save.controller.php');
 		// Skriv ICS-fil
 		require_once('controller/ics.controller.php');
+		// Gå over til listevisninga
+		$INFOS['tab_active'] = 'list';
+	}
+	elseif( $_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['edit'] == 'true') {
+		// Kjør oppdatering av form-verdier fra MySQL-databasen.
+		require_once('controller/form.controller.php');
+	}
+	elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_GET['delete'] == 'true') {
+		// Kjør controller som sletter databaseoppføring.
+		require_once('controller/delete.controller.php');
+		// Gå over til listevisninga
 		$INFOS['tab_active'] = 'list';
 	}
 	
