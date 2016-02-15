@@ -75,7 +75,7 @@ function UKMkalender_dash( $KALENDER ) {
 				$alertLevel = '';
 			}
 
-			$KALENDER_tmp[$counter] = array('level' 	=> $alertLevel,
+			$KALENDER_tmp[] = array('level' 	=> $alertLevel,
 								'header'	=> $row['title'],
 								'body'		=> $messageText,
 								'date'		=> $row['start']
