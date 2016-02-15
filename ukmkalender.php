@@ -13,7 +13,7 @@ require_once('UKM/sql.class.php');
 if(is_admin()) {
 	add_action('UKM_admin_menu', 'UKMkalender_menu');
 
-	add_filter('UKMWPDASH_messages', 'UKMkalender_dash');
+	add_filter('UKMWPDASH_calendar', 'UKMkalender_dash');
 }
 
 function link_it($text) {
@@ -39,15 +39,15 @@ function UKMkalender_script() {
 	wp_enqueue_script( 'UKMKalender_script', plugin_dir_url( __FILE__ ) .'ukmkalender.js');
 }
 
-function UKMkalender_dash( $MESSAGES ) {
+function UKMkalender_dash( $KALENDER ) {
 
 	$antallHendelser = 3;
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
+	$sql = new SQL("SELECT * FROM `ukm_kalender` ");#WHERE `start`>NOW() ORDER BY `start` DESC LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
-	$counter = sizeof($MESSAGES) + $antallHendelser;
+	$counter = sizeof($KALENDER) + $antallHendelser;
 	if ($res) {
 		// For each event:
 		while( $row = mysql_fetch_assoc($res) ) {
@@ -67,19 +67,22 @@ function UKMkalender_dash( $MESSAGES ) {
 				$alertLevel = 'alert-warning';
 			}
 			else {
-				$alertLevel = 'alert-info';
+				$alertLevel = '';
 			}
 
-			$MESSAGES_tmp[$counter] = array('level' 	=> $alertLevel,
+			$KALENDER_tmp[$counter] = array('level' 	=> $alertLevel,
 								'header'	=> $row['title'],
-								'body'		=> $messageText
+								'body'		=> $messageText,
+								'date'		=> $row['start']
 								);
 			$counter--;
 		}
-		ksort($MESSAGES_tmp);
-		$MESSAGES = array_merge($MESSAGES, $MESSAGES_tmp);
+		if( is_array( $KALENDER_tmp ) ) {
+			ksort($KALENDER_tmp);
+			$KALENDER = array_merge($KALENDER, $KALENDER_tmp);
+		}
 	}
-	return $MESSAGES;
+	return $KALENDER;
 }
 
 function UKMkalender() {
