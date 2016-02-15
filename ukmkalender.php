@@ -62,9 +62,7 @@ function UKMkalender_dash( $KALENDER ) {
 			$location = link_it($row['location']);
 			$description = link_it($row['description']);
 			
-			$row['start'] = ucfirst(dato($row['start'], 'l d. F'));
-
-			$messageText = '<b>Dato:</b> ' . $row['start'] . 
+			$messageText = '<b>Dato:</b> ' . ucfirst(dato($row['start'], 'l d. F')) . 
 							'<br><b>Sted:</b> ' . $location .
 							'<br><b>Beskrivelse:</b> ' . $description;
 			
@@ -78,7 +76,7 @@ function UKMkalender_dash( $KALENDER ) {
 			$KALENDER_tmp[] = array('level' 	=> $alertLevel,
 								'header'	=> $row['title'],
 								'body'		=> $messageText,
-								'date'		=> $row['start']
+								'start'		=> $row['start']
 								);
 		}
 		if( is_array( $KALENDER_tmp ) ) {
