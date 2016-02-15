@@ -74,9 +74,12 @@ function UKMkalender_dash( $KALENDER ) {
 			}
 
 			$KALENDER_tmp[] = array('level' 	=> $alertLevel,
-								'header'	=> $row['title'],
-								'body'		=> $messageText,
-								'start'		=> $row['start']
+								'header'		=> $row['title'],
+								'body'			=> $messageText,
+								'start'			=> $row['start'],
+								'stop'			=> $row['stop'],
+								'description'	=> $description,
+								'sted'			=> $row['location']
 								);
 		}
 		if( is_array( $KALENDER_tmp ) ) {
