@@ -21,6 +21,7 @@ $sted = $_POST['location'];
 $beskrivelse = $_POST['description'];
 $start = getDatePickerTime('start');
 $slutt = getDatePickerTime('stop');
+$varsling = $_POST['varsling'];
 
 // Hvis dette er en edit
 if ($_POST['id'] != '') {
@@ -38,6 +39,7 @@ $sql->add('location', $sted);
 $sql->add('description', $beskrivelse);
 $sql->add('start', $start);
 $sql->add('stop', $slutt);
+$sql->add('varsling', $varsling);
 
 // Kjør spørringen
 $res = $sql->run();

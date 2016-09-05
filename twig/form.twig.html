@@ -20,18 +20,28 @@
 				<label for="name">Beskrivelse</label>
 				<textarea class="form-control" id="description" name="description" placeholder="Skriv inn beskrivelse">{{ editevent == false ? '': editevent.description}}</textarea>
 			</div>
+
+			<div class="form-group">
+				<label for="varsling">Varsling</label>
+				<select class="form-control" name="varsling" id="varsling">
+					<option value="none" {{ editevent.varsel == 'none' ? 'selected' : ''}}>Ingen</option>
+					<option value="sdkl8" {{ editevent.varsel == 'sdkl8' ? 'selected' : ''}}>Samme dag kl. 8</option>
+					<option value="sdkl12" {{ editevent.varsel == 'sdkl12' ? 'selected' : ''}}>Samme dag kl. 12</option>
+					<option value="df" {{ editevent.varsel == 'df' ? 'selected' : ''}}>Dagen før</option>
+					<option value="uf" {{ editevent.varsel == 'uf' ? 'selected' : ''}}>1 uke før</option>
+				</select>
+			</div>
 		
 			<div class="form-group">
 				<label for="name">Start</label>
 				<input class="datepicker_kalender" type="text" id="start_datepicker" name="start_datepicker" value="{{editevent.start|date('d.m.Y')}}">
 			</div>
-		
-		
+
 			<div class="form-group">
 				<label for="name">Slutt</label>
 				<input class="datepicker_kalender" type="text" id="stop_datepicker" name="stop_datepicker" value="{{editevent.stop|date('d.m.Y')}}">
 			</div>
-			
+
 			<div class="form-group">
 				<button class="btn btn-success btn-lg" type="submit">Lagre</button>
 			</div>

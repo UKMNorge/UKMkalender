@@ -16,7 +16,7 @@ if( $res ) {
 	$row['title'] = utf8_encode($row['title']);
 	$row['description'] = utf8_encode($row['description']);
 	$row['location'] = utf8_encode($row['location']);
-
+	$row['varsel'] = $row['varsling'];
 	$INFOS['editevent'] = $row;
 }
 
