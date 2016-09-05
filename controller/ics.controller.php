@@ -39,7 +39,7 @@ if ($res) {
 		$event->setStop($stop);	// 
 
 		$varsel = varsel($row['varsling']);
-		var_dump($varsel);
+		#var_dump($varsel);
 		if($varsel) {
 			echo 'Varsel eksporteres';
 			$alarm = new ICS\Alarm();
@@ -53,9 +53,9 @@ if ($res) {
 
 		$cal->addEvent($event);	
 	}
-	echo '<pre>';
-	var_dump($cal);
-	echo '</pre>';
+	#echo '<pre>';
+	#var_dump($cal);
+	#echo '</pre>';
 	//var_dump($INFOS['savePath']); // Debug
 	$cal->write($INFOS['savePath'], ''); //TODO:
 }
