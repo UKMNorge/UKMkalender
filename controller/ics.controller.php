@@ -41,7 +41,7 @@ if ($res) {
 		$varsel = varsel($row['varsling']);
 		#var_dump($varsel);
 		if($varsel) {
-			echo 'Varsel eksporteres';
+			#echo 'Varsel eksporteres';
 			$alarm = new ICS\Alarm();
 			$alarm->setAction("DISPLAY")
 				->setTriggerType("PRIOR")
