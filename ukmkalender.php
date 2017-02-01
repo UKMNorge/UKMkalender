@@ -11,8 +11,9 @@ Author URI: http://mariusmandal.no
 require_once('UKM/sql.class.php');
 ## HOOK MENU AND SCRIPTS
 if(is_admin()) {
-	add_action('UKM_admin_menu', 'UKMkalender_menu');
-
+	if( get_option('site_type') != 'land' ) {
+		add_action('UKM_admin_menu', 'UKMkalender_menu');
+	}
 	add_filter('UKMWPDASH_calendar', 'UKMkalender_dash');
 }
 
