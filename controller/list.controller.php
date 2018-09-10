@@ -11,9 +11,9 @@ $sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylke." ORDER BY
 $res = $sql->run();
 if( $res ) {
 	while( $row = SQL::fetch( $res ) ) {
-		$row['title'] = utf8_encode($row['title']);
-		$row['description'] = utf8_encode($row['description']);
-		$row['location'] = utf8_encode($row['location']);
+		$row['title'] = $row['title'];
+		$row['description'] = $row['description'];
+		$row['location'] = $row['location'];
 		if (strtotime($row['start']) < $dato) { // Hvis gamlere enn nåtid
 			$INFOS['calendar_events']['Tidligere'][] = $row;
 		}	

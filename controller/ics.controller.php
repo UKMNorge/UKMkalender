@@ -24,9 +24,9 @@ if ($res) {
 	// For each event:
 	while( $row = SQL::fetch($res) ) {
 
-		$row['title'] = utf8_encode($row['title']);
-		$row['description'] = utf8_encode($row['description']);
-		$row['location'] = utf8_encode($row['location']);
+		$row['title'] = $row['title'];
+		$row['description'] = $row['description'];
+		$row['location'] = $row['location'];
 		
 		$event = new ICS\Event($eventName);
 		$start = new DateTime($row['start']);

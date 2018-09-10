@@ -55,9 +55,9 @@ function UKMkalender_dash( $KALENDER ) {
 		// For each event:
 		while( $row = SQL::fetch($res) ) {
 
-			$row['title'] = utf8_encode($row['title']);
-			$row['description'] = utf8_encode($row['description']);
-			$row['location'] = utf8_encode($row['location']);
+			$row['title'] = $row['title'];
+			$row['description'] = $row['description'];
+			$row['location'] = $row['location'];
 			
 			$start = strtotime($row['start']);
 			$location = link_it($row['location']);

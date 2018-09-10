@@ -26,10 +26,12 @@ $varsling = $_POST['varsling'];
 // Hvis dette er en edit
 if ($_POST['id'] != '') {
 	$sql = new SQLins('ukm_kalender', array('id'=> $_POST['id']));
+	$edit = true;
 }
 else {
 	// Eller en ny event
 	$sql = new SQLins('ukm_kalender');	
+	$edit = false;
 }
 
 // Legg til data i spørringen
@@ -54,7 +56,8 @@ else {
 	$INFOS['message'] = array('level'=>'danger', 'header'=>'Lagring feilet!','body'=>'Vennligst prøv igjen.');
 	// TODO: La data stå i forms hvis lagring feilet, ikke sett tab-active til list.
 }
-$eventid = $sql->insId();
+
+$eventid = $edit ? $_POST['id'] : $sql->insId();
 // Husk at $eventId = $sql->insId();
 
 ?>
