@@ -22,7 +22,7 @@ $res = $sql->run();
 
 if ($res) {
 	// For each event:
-	while( $row = mysql_fetch_assoc($res) ) {
+	while( $row = SQL::fetch($res) ) {
 
 		$row['title'] = utf8_encode($row['title']);
 		$row['description'] = utf8_encode($row['description']);

@@ -53,7 +53,7 @@ function UKMkalender_dash( $KALENDER ) {
 	//$counter = sizeof($MESSAGES) + $antallHendelser;
 	if ($res) {
 		// For each event:
-		while( $row = mysql_fetch_assoc($res) ) {
+		while( $row = SQL::fetch($res) ) {
 
 			$row['title'] = utf8_encode($row['title']);
 			$row['description'] = utf8_encode($row['description']);

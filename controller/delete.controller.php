@@ -12,7 +12,7 @@ if ($event_id) {
 	$res = $sql->run();
 
 	if( $res ) {
-		$row = mysql_fetch_assoc( $res );
+		$row = SQL::fetch( $res );
 		// Sjekk at fylke på event matcher fylke som vil slette.
 		if ($fylke != $row['fylke']) {
 			$INFOS['message'] = array('level'=>'danger', 'header'=>'Feilet!','body'=>'Du kan ikke slette events som ikke tilhører deg.');

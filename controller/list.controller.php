@@ -10,7 +10,7 @@ $dato = $date->getTimestamp();
 $sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylke." ORDER BY `start`");
 $res = $sql->run();
 if( $res ) {
-	while( $row = mysql_fetch_assoc( $res ) ) {
+	while( $row = SQL::fetch( $res ) ) {
 		$row['title'] = utf8_encode($row['title']);
 		$row['description'] = utf8_encode($row['description']);
 		$row['location'] = utf8_encode($row['location']);

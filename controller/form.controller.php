@@ -12,7 +12,7 @@ $sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `id` = ".$event_id." LIMIT 1"
 $res = $sql->run();
 
 if( $res ) {
-	$row = mysql_fetch_assoc( $res );
+	$row = SQL::fetch( $res );
 	$row['title'] = utf8_encode($row['title']);
 	$row['description'] = utf8_encode($row['description']);
 	$row['location'] = utf8_encode($row['location']);
