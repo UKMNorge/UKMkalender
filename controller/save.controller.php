@@ -27,11 +27,13 @@ $varsling = $_POST['varsling'];
 if ($_POST['id'] != '') {
 	$sql = new SQLins('ukm_kalender', array('id'=> $_POST['id']));
 	$edit = true;
+	$insertIdMethod = 'POST';
 }
 else {
 	// Eller en ny event
 	$sql = new SQLins('ukm_kalender');	
 	$edit = false;
+	$insertIdMethod = 'SQL';
 }
 
 // Legg til data i spørringen
@@ -49,7 +51,7 @@ $res = $sql->run();
 // $res er et array
 // echo $sql->debug();
 // echo var_dump($res);
-if ($res && $res == 1) { // Query funket!
+if ($res) { // Query funket!
 	$INFOS['message'] = array('level'=>'success', 'header'=>'Lagret!','body'=>'');
 }
 else {
@@ -59,5 +61,6 @@ else {
 
 $eventid = $edit ? $_POST['id'] : $sql->insId();
 // Husk at $eventId = $sql->insId();
+$eventid = $insertIdMethod == 'POST' ? $_POST['id'] : $sql->insId();
 
 ?>
