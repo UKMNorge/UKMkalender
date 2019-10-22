@@ -26,11 +26,13 @@ $varsling = $_POST['varsling'];
 // Hvis dette er en edit
 if ($_POST['id'] != '') {
 	$sql = new SQLins('ukm_kalender', array('id'=> $_POST['id']));
+	$edit = true;
 	$insertIdMethod = 'POST';
 }
 else {
 	// Eller en ny event
 	$sql = new SQLins('ukm_kalender');	
+	$edit = false;
 	$insertIdMethod = 'SQL';
 }
 
@@ -57,6 +59,8 @@ else {
 	// TODO: La data stå i forms hvis lagring feilet, ikke sett tab-active til list.
 }
 
+$eventid = $edit ? $_POST['id'] : $sql->insId();
+// Husk at $eventId = $sql->insId();
 $eventid = $insertIdMethod == 'POST' ? $_POST['id'] : $sql->insId();
 
 ?>
