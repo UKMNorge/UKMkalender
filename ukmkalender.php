@@ -8,7 +8,11 @@ Version: 1.0
 Author URI: http://mariusmandal.no
 */
 
-require_once('UKM/sql.class.php');
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Database\SQL\Query;
+
+require_once('UKM/Autoloader.php');
+
 ## HOOK MENU AND SCRIPTS
 if(is_admin()) {
 	if( get_option('site_type') != 'land' ) {
@@ -42,18 +46,18 @@ function UKMkalender_script() {
 
 function UKMkalender_dash( $KALENDER ) {
 	require_once('functions.php');
-	$pl = new monstring(get_option("pl_id"));
-	$fylkeId = $pl->get('fylke_id');
+	$arrangement = new Arrangement(intval(get_option("pl_id")));
+	$fylkeId = $arrangement->getfylke()->getId();
 	$antallHendelser = 3; // Antall hendelser som skal listes opp i meldinger.
 
 	// Hent neste 3 hendelser fra SQL-database
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND start>=CURDATE() ORDER BY `start` LIMIT " . $antallHendelser);
+	$sql = new Query("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." AND start>=CURDATE() ORDER BY `start` LIMIT " . $antallHendelser);
 	$res = $sql->run();
 
 	//$counter = sizeof($MESSAGES) + $antallHendelser;
 	if ($res) {
 		// For each event:
-		while( $row = SQL::fetch($res) ) {
+		while( $row = Query::fetch($res) ) {
 
 			$row['title'] = $row['title'];
 			$row['description'] = $row['description'];
@@ -92,7 +96,7 @@ function UKMkalender_dash( $KALENDER ) {
 }
 
 function UKMkalender() {
-	$pl = new monstring(get_option("pl_id"));
+	$pl = new Arrangement(get_option("pl_id"));
 
 	$INFOS = array();
 	

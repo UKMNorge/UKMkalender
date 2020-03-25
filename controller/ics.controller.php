@@ -1,15 +1,20 @@
 <?php
+
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Database\SQL\Query;
+
+require_once('UKM/Autoloader.php');
+
 require_once('ICS/Calendar.php');
 require_once('ICS/Event.php');
 require_once('ICS/Alarm.php');
-require_once('UKM/sql.class.php');
 
 
 $eventName = 'Eventtittel';
 
 $cal = new ICS\Calendar($calName);
 
-$pl = new monstring(get_option("pl_id"));
+$pl = new Arrangement(intval(get_option("pl_id")));
 $fylkeName = $pl->get('fylke_name');
 $fylkeId = $pl->get('fylke_id');
 
@@ -17,12 +22,12 @@ $cal->setDescription('Årshjul ' . $fylkeName . ' UKM');
 
 // Add events, generate from database
 // Kjør nytt query?
-$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." ORDER BY `title`");
+$sql = new Query("SELECT * FROM `ukm_kalender` WHERE `fylke` = ".$fylkeId." ORDER BY `title`");
 $res = $sql->run();
 
 if ($res) {
 	// For each event:
-	while( $row = SQL::fetch($res) ) {
+	while( $row = Query::fetch($res) ) {
 
 		$row['title'] = $row['title'];
 		$row['description'] = $row['description'];

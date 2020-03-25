@@ -1,6 +1,12 @@
 <?php
 
-$pl = new monstring(get_option("pl_id"));
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Database\SQL\Delete;
+use UKMNorge\Database\SQL\Query;
+
+require_once('UKM/Autoloader.php');
+
+$pl = new Arrangement(intval(get_option("pl_id")));
 $fylke = $pl->get('fylke_id');
 
 // Finn event-id fra GET-variabel
@@ -8,18 +14,18 @@ $event_id = $_GET['id'];
 
 if ($event_id) {
 	// Kjør SQL-query for å finne data om eventen
-	$sql = new SQL("SELECT * FROM `ukm_kalender` WHERE `id` = ".$event_id);
+	$sql = new Query("SELECT * FROM `ukm_kalender` WHERE `id` = ".$event_id);
 	$res = $sql->run();
 
 	if( $res ) {
-		$row = SQL::fetch( $res );
+		$row = Query::fetch( $res );
 		// Sjekk at fylke på event matcher fylke som vil slette.
 		if ($fylke != $row['fylke']) {
 			$INFOS['message'] = array('level'=>'danger', 'header'=>'Feilet!','body'=>'Du kan ikke slette events som ikke tilhører deg.');
 		} 
 		else {	
 			// Kjør SQL-query for å slette data
-			$sql = new SQLdel('ukm_kalender', array('id' => $event_id));
+			$sql = new Delete('ukm_kalender', array('id' => $event_id));
 			$res = $sql->run();
 
 			if ($res == TRUE) {

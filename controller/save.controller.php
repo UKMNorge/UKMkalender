@@ -1,4 +1,11 @@
 <?php
+
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Database\SQL\Insert;
+use UKMNorge\Database\SQL\Update;
+
+require_once('UKM/Autoloader.php');
+
 function getDatePickerTime($postname) {
 	$vals = explode('.', $_POST[$postname.'_datepicker']);
 	
@@ -13,7 +20,7 @@ function getDatePickerTime($postname) {
 	//return @mktime($v['h'],$v['i'],0,$v['m'],$v['d'],$v['y']);
 }
 
-$pl = new monstring(get_option("pl_id"));
+$pl = new Arrangement(intval(get_option("pl_id")));
 // Motta data fra form
 $tittel = $_POST['title'];
 $fylke = $pl->get('fylke_id');
@@ -25,13 +32,13 @@ $varsling = $_POST['varsling'];
 
 // Hvis dette er en edit
 if ($_POST['id'] != '') {
-	$sql = new SQLins('ukm_kalender', array('id'=> $_POST['id']));
+	$sql = new Update('ukm_kalender', array('id'=> $_POST['id']));
 	$edit = true;
 	$insertIdMethod = 'POST';
 }
 else {
 	// Eller en ny event
-	$sql = new SQLins('ukm_kalender');	
+	$sql = new Insert('ukm_kalender');	
 	$edit = false;
 	$insertIdMethod = 'SQL';
 }
