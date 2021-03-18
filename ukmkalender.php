@@ -41,7 +41,7 @@ function UKMkalender_script() {
 	wp_enqueue_script('WPbootstrap3_js');
 	wp_enqueue_style('WPbootstrap3_css');
 #	wp_enqueue_style( 'UKMkalender_style', plugin_dir_url( __FILE__ ) .'ukmvideresending_festival.css');
-	wp_enqueue_script( 'UKMKalender_script', plugin_dir_url( __FILE__ ) .'ukmkalender.js');
+	wp_enqueue_script( 'UKMKalender_script', PLUGIN_PATH .'UKMkalender/ukmkalender.js');
 }
 
 function UKMkalender_dash( $KALENDER ) {
